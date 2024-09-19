@@ -10,13 +10,39 @@
     <h1>G4主控板硬件开源</h1>
 </div>
 
+<div align='center'>
 
-> 设计者：
->
-> 文档撰写：
->
-> 香港科技大学ENTERPRIZE战队
+<img src="image/photo_1.jpg" alt="alt text" height="200"/>
+<img src="image/photo_2.jpg" alt="alt text" height="200"/>
 
+</div>
+
+> 设计者：xzm/贤梓铭 zxianaa@connect.ust.hk
+>
+> 指导/提议：jyc, jason chan, ry, ofr, zzy
+>
+> 香港科技大学ENTERPRIZE战队 robomasterhkust@gmail.com
+
+## 开源内容
+
+~~~
+RM2024_MainControlBoard
+├── RM2024_G473_MCB             >核心板工程文件
+├── RM2024_G473_MCB_StdExtend   >常规扩展板工程文件
+├── RM2024_G473_MCB_EngExtend   >单板方案工程扩展板工程文件 by ofr
+├── RM2024_G473_MCB_Debugger    >调试小板工程文件
+├── RM2024_G473_MCB_Shim.step   >3D打印垫片step文件 by tsl
+├── PDF Schematic               >PDF格式的原理图
+├── Fabrication Files           >生产文件(包括SMT)
+├── image
+└── README.md
+~~~
+
+开源工程文件设计软件为KiCAD 7.0, 建议使用KiCAD 8.0打开, 可以导入立创EDA
+
+生产文件使用KiCAD插件 "Fabrication Toolkit" 生成
+
+工程文件中包含 kicad_pro(工程); kicad_pcb(PCB); kicad_sch(原理图); ibom(焊接小工具, 由 "Interactive HTML BOM" 插件生成)
 
 ## 方案简介
 
@@ -60,7 +86,7 @@
 
 下面是具体的UART引脚配置, 以A/B/C后缀来表示同一UART的不同配置方式:
 
-<div style="margin-left: 20px">
+
 
 |        | TX   | RX   | DE   | CTS  | RTS  | 功能          |
 | -----  | ---- | ---- | ---- | ---- | ---- | ----          |
@@ -74,11 +100,10 @@
 | UART3C | -    | PB11 | -    | -    | -    | 接收机        | 
 | UART4  | PC10 | PC11 | PA15 | -    | -    | RS485        |   
 | UART5  | PC12 | PD2  | -    | -    | -    | 裁判系统/图传 |
-</div>
+
 
 下面是部分机器人上的UART功能分配
 
-<div style="margin-left: 20px">
 
 |                   | UART1 | UART2 | UART3 | UART4 | UART5 |
 | -----             | ----  | ----  | ----  | ----  | ----  |
@@ -87,7 +112,7 @@
 | 哨兵云台 | [C] 接收机 | [A] TTL1 | [A] TTL2 | RS485 | [A] 图传 |
 | 工程(单板) | [A] 裁判系统 | [B] 总线舵机  |  [C] 接收机 | RS485 | [A] 图传|
 | 通用底盘  | RESV | RESV | RESV | RS485 | 裁判系统 |
-</div>
+
 
 ### IMU
 
@@ -204,9 +229,18 @@ G4主控板采用MCU内部反相, 无需外部反相电路, 使用TPD4E1U06DCKR�
 
 后者是通过检测微小电压差异来确定目前的供电方式 (利用Buck输出 5.2V, USB供电 5.0V, SWD供电三种情况导致的差异), 并且在状态不正常时报警 (比如可以检测24V转5V的Buck损坏)
 
+### 纹波测试
+5V
 
+<img src="image/power_ripple_test_2.jpg" alt="alt text" height="300"/>
 
+3V3_MCU
 
+<img src="image/power_ripple_test_1.jpg" alt="alt text" height="300"/>
 
+## 复刻注意事项
 
-【RM2024-G4主控板硬件开源】香港科技大学-ENTERPRIZE战队
+- 目前包含的SMT生产文件格式适用于嘉立创, 如有需要请重新生成
+- BTB很脆弱, 避免在不垫垫片的情况下安装
+- 焊接IMU后不要用超声波洗板
+
