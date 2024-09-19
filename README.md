@@ -28,6 +28,7 @@
 - TTL (硬件流控): CH343P *2 
 - FDCAN *3
 - RS485 (硬件流控) *1
+- FLASH: W25N01GVZEIG
 
 ## 项目背景 & 应用情况
 
@@ -41,9 +42,9 @@
 
 同时, 新一代主控板也有缩小体积的需求, 整个主控板大小控制在 60×40×21mm, 与大疆C板相近, 便于机械安装
 
-最终, G4主控板倍用于控制ENTERPRIZE战队本赛季所有新研发的机器人
+最终, G4主控板被应用于ENTERPRIZE战队本赛季所有新研发的机器人, 并且实现了工程机器人的单板方案
 
-## 技术细节 & 特殊设计
+## 技术细节
 
 ### UART
 
@@ -84,9 +85,71 @@
 | 通用底盘  | RESV | RESV | RESV | RS485 | 裁判系统 |
 </div>
 
-## IMU恒温
+### IMU
 
-在测试G板原型板经过测试发现
+经过对比测试, IMU选择ICM-42688P, 并配合加热电阻实现恒温
+
+经过测试, 选用1206封装, 36ohm的电阻可以满足恒温50°C的需求; 恒温后5分钟内漂移小于1°
+
+同时, SPI信号线串接82ohm电阻, 通信速率可以稳定20M
+
+<img src="image/sch_imu_heater.png" alt="alt text" height="150"/>
+
+
+
+### RS485
+
+|       | TX/D | RX/R | DE   |
+| ----- | ---- | ---- | ---- |
+| RS485 | PC10 | PC11 | PA15 |
+
+主控板集成RS485来提供板间通信功能, 相较于串口, RS485可以使通信更加稳定(特别是过滑环时)
+
+RS485 Transceiver选用SN75176AD, 可替换为其他芯片; 用SM712进行保护
+
+使用STM32G473的RS485硬件流控功能后, 板间通信速率最高可以达到4.8M, 丢包率小于0.09%
+
+<img src="image/sch_RS485_transceiver.png" alt="alt text" height="150"/>
+
+### CAN (×3)
+
+|       | TX   | RX   |
+| ----- | ---- | ---- |
+| CAN1  | PD1  | PD0  |
+| CAN2  | PB6  | PB5  |
+| CAN3  | PB4  | PB3  |
+
+CAN Transceiver选用SIT1042T/3, 可替换为其他芯片; 使用ESD1CAN进行保护
+
+<img src="image/sch_can_transceiver.png" alt="alt text" height="150"/>
+
+### USB-TTL (×2)
+
+|       | TX   | RX   | CTS  | RTS  |
+| ----- | ---- | ---- | ---- | ---- |
+| TTL1 (UART2A)  | PA2  | PA3  | PA0  | PA1  |
+| TTL2 (UART3A)  | PD8  | PD9  | PD11 | PD12 |
+
+USB-TTL选用CH343P, 连接了RTS/CTS引脚来实现硬件流控, 使用TPD4E1U06DCKR进行保护
+
+经测试全双工条件下单向速率稳定2M, 实测丢包率0.006%左右
+
+连接了ACT指示灯, 方便观察连接状态, 此功能上场时非常有用(观察MiniPC是否断连)
+
+<img src="image/sch_ttl_ch343p.png" alt="alt text" height="150"/>
+
+### FLASH
+
+|       | NCS   | CLK   | IO0  | IO1  | IO2  | IO3  |
+| ----- | ---- | ---- | ---- | ---- | ---- | ---- |
+| MCU   | PD3  | PF10  | PD4  | PC2  | PD3  | PC7  |
+
+主控板集成FLASH用于记录数据, 便于调试分析; 型号选用W25N01GVZEIG; 通过QSPI与MCU进行通信
+
+<img src="image/sch_qspi_flash.png" alt="alt text" height="150"/>
+
+## 电源框图
+
 
 
 
