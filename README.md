@@ -12,8 +12,8 @@
 
 <div align='center'>
 
-<img src="image/photo_1.jpg" alt="alt text" height="200"/>
-<img src="image/photo_2.jpg" alt="alt text" height="200"/>
+<img src="image/photo_1.jpg" alt="alt text" height="300"/>
+<img src="image/photo_2.jpg" alt="alt text" height="300"/>
 
 </div>
 
@@ -66,12 +66,14 @@ RM2024_MainControlBoard
 - 支持RS485硬件流控功能, 提升板间通讯的稳定性
 - 相较于H7系列复杂度较低, 开发难度与F4系列近似
 
-<img src="image/photo_3.png" alt="alt text" height="200"/>
-<img src="image/photo_4.jpg" alt="alt text" height="200"/>
+<div align='center'>
+<img src="image/photo_3.png" alt="alt text" height="300"/>
+<img src="image/photo_4.jpg" alt="alt text" height="300"/>
+</div>
 
 同时, 新一代主控板也有缩小体积的需求, 整个主控板大小控制在 60×40×21mm, 与大疆C板相近, 便于机械安装
 
-最终, G4主控板被应用于ENTERPRIZE战队本赛季所有新研发的机器人, 并且实现了工程机器人的单板方案
+最终, G4主控板被应用于ENTERPRIZE战队本赛季所有新研发的机器人, 并且为工程机器人的单板方案和双头哨兵打下基础; 同时也实现了较强的稳定性, 在几场比赛中从未出现因硬件不稳定而导致的问题
 
 ## 硬件连接框图(简化)
 
