@@ -19,7 +19,7 @@
 
 > 设计者：xzm/贤梓铭 zxianaa@connect.ust.hk
 >
-> 指导/提议：jyc, jason chan, ry, ofr, zzy
+> 指导/提议：jyc, jason chan, ry, ofr, fallengold, zzy
 >
 > 香港科技大学ENTERPRIZE战队 robomasterhkust@gmail.com
 
@@ -31,7 +31,7 @@ RM2024_MainControlBoard
 ├── RM2024_G473_MCB_StdExtend   >常规扩展板工程文件
 ├── RM2024_G473_MCB_EngExtend   >单板方案工程扩展板工程文件 by ofr
 ├── RM2024_G473_MCB_Debugger    >调试小板工程文件
-├── RM2024_G473_MCB_Shim.step   >3D打印垫片step文件 by tsl
+├── RM2024_G473_MCB_Shim.step   >一体3D打印垫片step文件 by tsl
 ├── PDF Schematic               >PDF格式的原理图
 ├── Fabrication Files           >生产文件(包括SMT)
 ├── image
@@ -66,6 +66,9 @@ RM2024_MainControlBoard
 - 支持RS485硬件流控功能, 提升板间通讯的稳定性
 - 相较于H7系列复杂度较低, 开发难度与F4系列近似
 
+<img src="image/photo_3.png" alt="alt text" height="200"/>
+<img src="image/photo_4.jpg" alt="alt text" height="200"/>
+
 同时, 新一代主控板也有缩小体积的需求, 整个主控板大小控制在 60×40×21mm, 与大疆C板相近, 便于机械安装
 
 最终, G4主控板被应用于ENTERPRIZE战队本赛季所有新研发的机器人, 并且实现了工程机器人的单板方案
@@ -81,6 +84,8 @@ RM2024_MainControlBoard
 虽然STM32G473的FDCAN等外设数量较多, 但UART的数量却只有5个, 如果用传统的方法对UART和相应功能进行一一绑定, 那么UART数量则不足以实现所有需要的功能
 
 为了解决此问题, G4主控板在设计时利用了MCU外设内部的MUX, 比如 UART1 可以配置为 PC4/PC5 或 PE0/PE1, 再与相应功能进行绑定, 以此来实现在不同应用场景中适应不同需求的能力
+
+<img src="image/uart_mux.png" alt="alt text" height="200"/>
 
 同时, 对于同一功能, G4主控板也提供了可以从多个外设的访问的选项; 比如对于接收机, 可以通过软件配置来使用 UART1 或 UART3 来接受数据
 
