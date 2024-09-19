@@ -12,8 +12,8 @@
 
 <div align='center'>
 
-<img src="image/photo_1.jpg" alt="alt text" height="300"/>
-<img src="image/photo_2.jpg" alt="alt text" height="300"/>
+<img src="image/photo_1.jpg" alt="alt text" height="250"/>
+<img src="image/photo_2.jpg" alt="alt text" height="250"/>
 
 </div>
 
@@ -67,8 +67,8 @@ RM2024_MainControlBoard
 - 相较于H7系列复杂度较低, 开发难度与F4系列近似
 
 <div align='center'>
-<img src="image/photo_3.png" alt="alt text" height="300"/>
-<img src="image/photo_4.jpg" alt="alt text" height="300"/>
+<img src="image/photo_3.png" alt="alt text" height="250"/>
+<img src="image/photo_4.jpg" alt="alt text" height="250"/>
 </div>
 
 同时, 新一代主控板也有缩小体积的需求, 整个主控板大小控制在 60×40×21mm, 与大疆C板相近, 便于机械安装
@@ -224,7 +224,7 @@ G4主控板采用MCU内部反相, 无需外部反相电路, 使用TPD4E1U06DCKR�
 
 #### 3V3_SWD
 
-队内发生过因烧录器LDO损坏而导致5V烧毁MCU, 因此与 3V3_MCU 隔离, 通过二极管接入5V网络并同时防止倒灌;
+队内发生过因烧录器LDO损坏而导致 5V 烧毁MCU, 因此与 3V3_MCU 隔离, 通过二极管接入5V网络并同时防止倒灌;
 
 此设计也产生了一个缺陷: 当主控板仅由烧录器供电是, 有时会因为压降太大而导致烧录不正常, 因此建议在有MiniPC USB供电或24V供电的情况下进行代码烧录和调试
 
@@ -232,7 +232,7 @@ G4主控板采用MCU内部反相, 无需外部反相电路, 使用TPD4E1U06DCKR�
 
 主控板对 24V 和 5V 电源网络进行了电压采样;
 
-前者是为了监测24V真实电源电压, 可以得到一些粗略电压信息;
+前者是为了监测 24V 真实电源电压, 可以得到一些粗略电压信息;
 
 后者是通过检测微小电压差异来确定目前的供电方式 (利用Buck输出 5.2V, USB供电 5.0V, SWD供电三种情况导致的差异), 并且在状态不正常时报警 (比如可以检测24V转5V的Buck损坏)
 
