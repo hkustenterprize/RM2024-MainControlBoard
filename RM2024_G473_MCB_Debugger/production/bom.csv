@@ -1,0 +1,11 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+BZ1,MLT-9032,1,Buzzer,
+C1,0603,1,100n,
+"C2, C3",0603,2,10u,
+D1,D_SMF,1,K34,
+D2,0603,1,G,
+J2,Molex_PicoBlade_53398-0471_1x04-1MP_P1.25mm_Vertical,1,SWD,
+J3,JST_GH_SM07B-GHS-TB_1x07-1MP_P1.25mm_Horizontal,1,Conn_01x07_MountingPin,
+"R1, R2",0603,2,10k,
+U1,SSOP-28_3.9x9.9mm_P0.635mm,1,TM1640(TA2103) SSOP-28,
+U2,LED-8888-3461,1,3461,

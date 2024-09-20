@@ -19,7 +19,7 @@
 
 > 设计者：xzm/贤梓铭 zxianaa@connect.ust.hk
 >
-> 指导/提议：jyc, jason chan, ry, ofr, fallengold, zzy
+> 指导/提议：jyc/EthenJ, jason chan, ry/EEASEE, ofr, gzl/Fallengold, zzy
 >
 > 香港科技大学ENTERPRIZE战队 robomasterhkust@gmail.com
 
@@ -27,22 +27,32 @@
 
 ~~~
 RM2024_MainControlBoard
-├── RM2024_G473_MCB             >核心板工程文件
-├── RM2024_G473_MCB_StdExtend   >常规扩展板工程文件
-├── RM2024_G473_MCB_EngExtend   >单板方案工程扩展板工程文件 by ofr
-├── RM2024_G473_MCB_Debugger    >调试小板工程文件
-├── RM2024_G473_MCB_Shim.step   >一体3D打印垫片step文件 by tsl
-├── PDF Schematic               >PDF格式的原理图
-├── Fabrication Files           >生产文件(包括SMT)
 ├── image
+├── PDF Schematic               > PDF格式的原理图
+├── RM2024_G473_MCB             > 核心板工程文件
+├── RM2024_G473_MCB_Debugger    > 调试小板工程文件
+├── RM2024_G473_MCB_EngExtend   > 单板方案工程扩展板工程文件 by ofr
+├── RM2024_G473_MCB_StdExtend   > 常规扩展板工程文件
+├── RM2024_G473_MCB_Shim.step   > 一体3D打印垫片step文件 by tsl
+├── RM2024-Template-G473.ioc    > CubeMX模板
+├── LICENSE
 └── README.md
 ~~~
 
-开源工程文件设计软件为KiCAD 7.0, 建议使用KiCAD 8.0打开, 可以导入立创EDA
+开源工程文件设计软件为 KiCAD, 建议使用 **KiCAD 8.0** 打开, 可以导入 **立创EDA**
 
-生产文件使用KiCAD插件 "Fabrication Toolkit" 生成
 
-工程文件中包含 kicad_pro(工程); kicad_pcb(PCB); kicad_sch(原理图); ibom(焊接小工具, 由 "Interactive HTML BOM" 插件生成)
+
+每个工程文件文件夹中的内容:
+
+~~~
+xxx
+├── bom             > 焊接小工具, 由 "Interactive HTML BOM" 插件生成
+├── production      > 生产文件, 由 "Fabrication Toolkit" 插件生成
+├── xxx.kicad_pcb   > PCB
+├── xxx.kicad_pro   > 主工程, 通过双击这个启动KiCAD
+└── xxx.kicad_sch   > 原理图
+~~~
 
 ## 方案简介
 
@@ -66,14 +76,17 @@ RM2024_MainControlBoard
 - 支持RS485硬件流控功能, 提升板间通讯的稳定性
 - 相较于H7系列复杂度较低, 开发难度与F4系列近似
 
+
+同时, 新一代主控板也有缩小体积的需求, 整个主控板大小控制在 **60×40×21mm**, 与大疆C板相近, 便于机械安装
+
 <div align='center'>
-<img src="image/photo_3.png" alt="alt text" height="250"/>
 <img src="image/photo_4.jpg" alt="alt text" height="250"/>
+<img src="image/photo_3.png" alt="alt text" height="250"/>
+
 </div>
 
-同时, 新一代主控板也有缩小体积的需求, 整个主控板大小控制在 60×40×21mm, 与大疆C板相近, 便于机械安装
 
-最终, G4主控板被应用于ENTERPRIZE战队本赛季所有新研发的机器人, 并且为工程机器人的单板方案和双头哨兵打下基础; 同时也实现了较强的稳定性, 在几场比赛中从未出现因硬件不稳定而导致的问题
+最终, G4主控板被应用于ENTERPRIZE战队本赛季所有新研发的机器人, 并且为 **工程机器人的单板方案** (左图) 和 **双头哨兵** (右图) 打下基础; 同时也实现了较强的稳定性, 在几场比赛中从未出现因硬件不稳定而导致的问题
 
 ## 硬件连接框图(简化)
 
@@ -85,7 +98,7 @@ RM2024_MainControlBoard
 
 虽然STM32G473的FDCAN等外设数量较多, 但UART的数量却只有5个, 如果用传统的方法对UART和相应功能进行一一绑定, 那么UART数量则不足以实现所有需要的功能
 
-为了解决此问题, G4主控板在设计时利用了MCU外设内部的MUX, 比如 UART1 可以配置为 PC4/PC5 或 PE0/PE1, 再与相应功能进行绑定, 以此来实现在不同应用场景中适应不同需求的能力
+为了解决此问题, G4主控板在设计时利用了MCU外设内部的 **MUX**, 比如 UART1 可以配置为 PC4/PC5 或 PE0/PE1, 再与相应功能进行绑定, 以此来实现在不同应用场景中适应不同需求的能力
 
 <img src="image/uart_mux.png" alt="alt text" height="200"/>
 
@@ -125,9 +138,9 @@ RM2024_MainControlBoard
 
 经过对比测试, IMU选择ICM-42688P, 并配合加热电阻实现恒温
 
-经过测试, 选用1206封装, 36ohm的电阻可以满足恒温50°C的需求; 经测试, 恒温后纯IMU姿态解算5分钟内漂移小于1°
+经过测试, 选用1206封装, 36ohm的电阻可以满足恒温50°C的需求; 经测试, **恒温后纯IMU姿态解算5分钟内漂移小于1°**
 
-同时, SPI信号线串接82ohm电阻, 通信速率可以稳定20M
+同时, SPI信号线串接82ohm电阻, **通信速率可以稳定20M**
 
 <img src="image/sch_imu_heater.png" alt="alt text" height="150"/>
 
@@ -143,7 +156,7 @@ RM2024_MainControlBoard
 
 RS485 Transceiver选用SN75176AD, 可替换为其他芯片; 用SM712进行保护
 
-使用STM32G473的RS485硬件流控功能后, 板间通信速率最高可以达到4.8M, 丢包率小于0.09%
+使用STM32G473的RS485硬件流控功能后, **板间通信速率最高可以达到4.8M, 丢包率小于0.09%**
 
 <img src="image/sch_RS485_transceiver.png" alt="alt text" height="150"/>
 
@@ -168,7 +181,7 @@ CAN Transceiver选用SIT1042T/3, 可替换为其他芯片; 使用ESD1CAN进行�
 
 USB-TTL选用CH343P, 连接了RTS/CTS引脚来实现硬件流控, 使用TPD4E1U06DCKR进行保护
 
-经测试全双工条件下单向速率稳定2M, 实测丢包率0.006%左右
+经测试**全双工条件下单向速率稳定2M, 实测丢包率0.006%左右**
 
 连接了ACT指示灯, 方便观察连接状态, 此功能上场时非常有用(观察MiniPC是否断连)
 
@@ -239,11 +252,11 @@ G4主控板采用MCU内部反相, 无需外部反相电路, 使用TPD4E1U06DCKR�
 ### 纹波测试
 5V
 
-<img src="image/power_ripple_test_2.jpg" alt="alt text" height="300"/>
+<img src="image/ripple_5V.png" alt="alt text" height="300"/>
 
 3V3_MCU
 
-<img src="image/power_ripple_test_1.jpg" alt="alt text" height="300"/>
+<img src="image/ripple_3V3_MCU.png" alt="alt text" height="300"/>
 
 ## 复刻注意事项
 
