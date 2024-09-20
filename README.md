@@ -81,7 +81,7 @@ xxx
 
 <div align='center'>
 <img src="image/photo_4.jpg" alt="alt text" height="250"/>
-<img src="image/photo_3.png" alt="alt text" height="250"/>
+<img src="image/photo_3.jpg" alt="alt text" height="250"/>
 
 </div>
 
