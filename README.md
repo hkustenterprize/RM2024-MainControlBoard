@@ -122,7 +122,7 @@ xxx
 | UART5  | PC12 | PD2  | -    | -    | -    | 裁判系统/图传 |
 
 
-下面是部分机器人上的UART功能分配
+下面是部分机器人上的UART功能分配:
 
 
 |                   | UART1 | UART2 | UART3 | UART4 | UART5 |
